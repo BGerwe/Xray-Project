@@ -67,7 +67,8 @@ def P2R(radii, angles):
 #For "combined ffts (i.e. [-freq Re +freq Re -freq Im +freq Im]) will give
 #two columns of indices in form of "single" fft
 def fftbin(freqin,freqlist, Ns,dt, FFTtype, harmonics):
-    tmeas=np.ceil(Ns*dt)
+#     tmeas=np.ceil(Ns*dt)
+    tmeas=Ns*dt
         
     if FFTtype=="Real" or FFTtype=="Imag":
         mid=np.size(freqlist)/2
