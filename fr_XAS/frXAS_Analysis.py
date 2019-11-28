@@ -72,3 +72,13 @@ def print_data_shapes(file):
             print(f[group][dset].name, f[group][dset].shape)
 
     return
+    
+def get_Po2_Cond(file):
+    gas =[]
+
+    for group in f1.keys():
+        name = str(group).split("'")
+        g = name[0].split('%')
+        gas.append(g[0])
+        
+    return gas
