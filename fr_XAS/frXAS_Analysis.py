@@ -1,5 +1,8 @@
 import numpy as np
 import h5py
+import lmfit
+from lmfit import Parameters, minimize
+
 
 def create_Exp_File(filename: str, Po2s: list, Temp:int=700):
     try:
@@ -58,6 +61,8 @@ def add_frXAS_Profile(file, Po2, frequency, data):
         else:
             f[group].create_dataset(dset, data=data)
 
+        f[group][dset].attrs['frequency'] = frequency
+
     except:
         print('Data entry unsuccessful')
         return
@@ -82,3 +87,77 @@ def get_Po2_Cond(file):
         gas.append(g[0])
         
     return gas
+
+def extr_adj_1Po2(obj, starts=None):
+    gas = obj.attrs['Gas']
+    adj_starts = True
+    i=0
+
+    if starts is None:
+        starts = []
+        adj_starts = False
+
+    frequencies = []
+    data = []
+    data_adj = []
+    for group in obj.keys():
+        frequency = obj[group].attrs['frequency']
+
+        if adj_starts:
+            start = starts[i]
+            dat = np.array(obj[group])
+            rows = dat.shape[0]
+            cols = dat.shape[1]
+            dat_adj = np.resize(dat[:, start-1:],(rows + 1, cols))
+            dat_adj[0,:] = dat_adj[0, :] - dat_adj[0, 0]
+            dat_adj[3,:] = np.sqrt(dat_adj[1,:]**2 + dat_adj[2,:]**2)
+            i += 1
+        else:
+            start = obj[group].attrs['start']
+            dat = np.array(obj[group])
+            rows = dat.shape[0]
+            cols = dat.shape[1]
+            dat_adj = np.resize(dat[:, start-1:],(rows + 1, cols))
+            dat_adj[0,:] = dat_adj[0, :] - dat_adj[0, 0]
+            dat_adj[3,:] = np.sqrt(dat_adj[1,:]**2 + dat_adj[2,:]**2)
+            starts.append(start)
+
+        frequencies.append(frequency)
+        data.append(dat)
+        data_adj.append(dat_adj)
+
+    return dict([('gas', gas), ('frequencies', frequencies), 
+                 ('starts', starts), ('data', data), ('data_adj', data_adj)])
+
+def Single_Chi_Model(x, Amp, l_d, sig):
+	return Amp * np.exp((-x / l_d) * np.sqrt(1 + 1j * sig))
+
+
+
+class ChiModel(lmfit.model.Model):
+    
+    def __init__(self, *args, **kwargs):
+        super(ChiModel, self).__init__(Comp_model2, *args, **kwargs)
+        
+        self.set_param_hint('Amp', min=0)
+        self.set_param_hint('l_d', min=0)
+        self.set_param_hint('sig', min=0)
+ 
+    def guess(self, data, x=None, **kwargs):
+        verbose = kwargs.pop('verbose', None)
+        if x is None:
+            return
+        
+        Amp_guess = data[0]
+        Amp_min = 0
+        Amp_max = 2
+        
+                
+#         if verbose:
+#             print("fmin=", fmin, "fmax=", fmax, "f_0_guess=", f_0_guess)
+#             print("Qmin=", Q_min, "Q_max=", Q_max, "Q_guess=", Q_guess, "Q_e_real_guess=", Q_e_real_guess)
+        params = self.make_params(Amp=Amp_guess, )
+        params['%sAmp' % self.prefix].set(min=Amp_min, max=Amp_max)
+        params['%s']
+        return lmfit.models.update_param_vals(params, self.prefix, **kwargs)
+
