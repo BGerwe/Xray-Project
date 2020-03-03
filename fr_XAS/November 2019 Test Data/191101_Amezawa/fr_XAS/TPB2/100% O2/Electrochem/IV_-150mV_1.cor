@@ -1,0 +1,86 @@
+CORRW ASCII
+  CorrWare for Windows: Version 3.5f
+  Potentiostatic	[-0.15 Ref,1 Sec][default]	IV_-150mV_1.cor
+  Date: 11-05-2019    Time: 01:05:44
+   
+   
+  Open Circuit Potential (V): 0.0015
+  Begin Information:          Cell Information
+    Surface Area:             1
+    Density:                  0
+    Weight:                   0
+    Polarity:                 0
+    PolarityI:                0
+    Corrosion Unit Type:      0
+    Reference Type:           0
+    Reference Potential:      0
+    User-Defined Potential:   0
+    Stern-Geary:              26
+  End Information:            Cell Information
+  Begin Pstat:                1287
+    Pstat Title:              Instrument #1
+    Booster Type:             0
+    Booster Name:             None
+    Current Range:            0
+    Current Limit:            0
+    Current LimitType:        0
+    Sweep Type:               0
+    Use Error Beep:           1
+    Auxilary Type:            0
+    iR Comp. Type:            0
+    iR Ohms:                  0
+    iR Time:                  27
+    iR Ratio:                 255
+    LP Filter Type:           2
+    Drift Correction:         1
+    Null Correction:          0
+    Pstat Bandwidth Type:     2
+    Gstat Bandwidth Type:     2
+    External Input:           0
+    SafetyMinV:               0
+    SafetyMaxV:               10
+    SafetyMinI:               0
+    SafetyMaxI:               4
+    SafetyMinQ:               0
+    SafetyMaxQ:               1000
+    SafetyMinT:               0
+    SafetyMaxT:               50
+    SafetyChT:                0
+    SafetyMinVUse:            0
+    SafetyMaxVUse:            0
+    SafetyMinIUse:            0
+    SafetyMaxIUse:            0
+    SafetyMinQUse:            0
+    SafetyMaxQUse:            0
+    SafetyMinTUse:            0
+    SafetyMaxTUse:            0
+  End Pstat:                  1287
+  Begin Experiment:           Potentiostatic	[-0.15 Ref,1 Sec][default]	IV_-150mV_1.cor
+    Data File:                Z:\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\IV_-150mV_1.cor
+    Data Append:              0
+    Comment Lines:            0
+    Potential:                -0.15
+    Potential Type:           1
+    Total Time:               1
+    Time Units:               0
+    Time Marker:              -1
+    Measure Rate Type:        1
+    Measure Rate #1:          2000
+    Measure Rate #2:          600
+    Measure Rate #3:          0.1
+    Measure Rate #4:          2
+    Use Threshold:            0
+    Threshold I_Min:          -15
+    Threshold I_Max:          15
+    Threshold Delta:          5
+    Threshold Time:           60
+    Copy AuxV:                0
+    Axes Type:                1
+    Use Custom Pstat:         0
+  End Experiment:             Potentiostatic	[-0.15 Ref,1 Sec][default]	IV_-150mV_1.cor
+  Data Points:                3
+  E(Volts)	I(A/cm2)	T(Seconds)
+End Comments
+-1.782755E-01	-5.449611E-04	0.000000E+00
+-1.501141E-01	-4.156404E-04	9.300000E-01
+-1.501064E-01	-4.468358E-04	1.000000E+00

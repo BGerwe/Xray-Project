@@ -1,0 +1,155 @@
+CORRW ASCII
+  CorrWare for Windows: Version 3.5f
+  Potentiostatic	[-0.05 Ref,1.5 Min][default]	IV_-50mV_1.cor
+  Date: 11-05-2019    Time: 17:05:06
+   
+   
+  Open Circuit Potential (V): -0.0074
+  Begin Information:          Cell Information
+    Surface Area:             1
+    Density:                  0
+    Weight:                   0
+    Polarity:                 0
+    PolarityI:                0
+    Corrosion Unit Type:      0
+    Reference Type:           0
+    Reference Potential:      0
+    User-Defined Potential:   0
+    Stern-Geary:              26
+  End Information:            Cell Information
+  Begin Pstat:                1287
+    Pstat Title:              Instrument #1
+    Booster Type:             0
+    Booster Name:             None
+    Current Range:            0
+    Current Limit:            0
+    Current LimitType:        0
+    Sweep Type:               0
+    Use Error Beep:           1
+    Auxilary Type:            0
+    iR Comp. Type:            0
+    iR Ohms:                  0
+    iR Time:                  27
+    iR Ratio:                 255
+    LP Filter Type:           2
+    Drift Correction:         1
+    Null Correction:          0
+    Pstat Bandwidth Type:     2
+    Gstat Bandwidth Type:     2
+    External Input:           0
+    SafetyMinV:               0
+    SafetyMaxV:               10
+    SafetyMinI:               0
+    SafetyMaxI:               4
+    SafetyMinQ:               0
+    SafetyMaxQ:               1000
+    SafetyMinT:               0
+    SafetyMaxT:               50
+    SafetyChT:                0
+    SafetyMinVUse:            0
+    SafetyMaxVUse:            0
+    SafetyMinIUse:            0
+    SafetyMaxIUse:            0
+    SafetyMinQUse:            0
+    SafetyMaxQUse:            0
+    SafetyMinTUse:            0
+    SafetyMaxTUse:            0
+  End Pstat:                  1287
+  Begin Experiment:           Potentiostatic	[-0.05 Ref,1.5 Min][default]	IV_-50mV_1.cor
+    Data File:                Z:\191101_Amezawa\fr_XAS\TPB2\500C 100%O2\Electrochem\IV_-50mV_1.cor
+    Data Append:              0
+    Comment Lines:            0
+    Potential:                -0.05
+    Potential Type:           1
+    Total Time:               1.5
+    Time Units:               1
+    Time Marker:              -1
+    Measure Rate Type:        1
+    Measure Rate #1:          2000
+    Measure Rate #2:          10
+    Measure Rate #3:          0.1
+    Measure Rate #4:          2
+    Use Threshold:            0
+    Threshold I_Min:          -15
+    Threshold I_Max:          15
+    Threshold Delta:          5
+    Threshold Time:           60
+    Copy AuxV:                0
+    Axes Type:                1
+    Use Custom Pstat:         0
+  End Experiment:             Potentiostatic	[-0.05 Ref,1.5 Min][default]	IV_-50mV_1.cor
+  Data Points:                72
+  E(Volts)	I(A/cm2)	T(Seconds)
+End Comments
+-2.878101E-02	-1.447871E-07	0.000000E+00
+-4.912077E-02	-3.199142E-07	8.900000E-01
+-5.069817E-02	5.974911E-06	1.440000E+00
+-4.890353E-02	-9.151927E-07	1.940000E+00
+-4.884750E-02	-1.118740E-06	2.390000E+00
+-4.886823E-02	-1.183260E-06	2.830000E+00
+-4.884213E-02	-1.223969E-06	3.310000E+00
+-4.882140E-02	-1.248549E-06	3.750000E+00
+-4.883752E-02	-1.259302E-06	4.200000E+00
+-4.887974E-02	-1.263911E-06	4.640000E+00
+-4.879991E-02	-1.240868E-06	5.070000E+00
+-4.882831E-02	-1.238563E-06	5.520000E+00
+-4.884980E-02	-1.233187E-06	5.960000E+00
+-4.881449E-02	-1.210912E-06	6.400000E+00
+-4.882524E-02	-1.213216E-06	6.840000E+00
+-4.881603E-02	-1.203231E-06	7.290000E+00
+-4.879453E-02	-1.211680E-06	7.730000E+00
+-4.880605E-02	-1.203999E-06	8.180000E+00
+-4.882294E-02	-1.183260E-06	8.620000E+00
+-4.883906E-02	-1.198622E-06	9.050000E+00
+-4.883138E-02	-1.187869E-06	9.930000E+00
+-4.878686E-02	-1.187101E-06	1.038000E+01
+-4.880989E-02	-1.157145E-06	1.082000E+01
+-4.884597E-02	-1.188637E-06	1.127000E+01
+-4.882218E-02	-1.148695E-06	1.171000E+01
+-4.881066E-02	-1.154072E-06	1.214000E+01
+-4.886516E-02	-1.156376E-06	1.260000E+01
+-4.887053E-02	-1.168666E-06	1.303000E+01
+-5.007336E-02	-1.159655E-06	1.352000E+01
+-5.007412E-02	-1.267173E-06	1.433000E+01
+-5.007258E-02	-1.297892E-06	1.501000E+01
+-5.008410E-02	-1.274853E-06	1.574000E+01
+-5.008334E-02	-1.313252E-06	1.632000E+01
+-5.003344E-02	-6.696816E-06	1.684000E+01
+-5.009638E-02	-1.320932E-06	1.759000E+01
+-5.019924E-02	-1.282533E-06	1.828000E+01
+-4.897185E-02	-1.267173E-06	1.914000E+01
+-5.034892E-02	-1.175015E-06	1.982000E+01
+-4.884980E-02	-1.107986E-06	2.079000E+01
+-4.883061E-02	-1.136406E-06	2.124000E+01
+-4.887053E-02	-1.138710E-06	2.168000E+01
+-4.884827E-02	-1.120276E-06	2.212000E+01
+-4.884827E-02	-1.116435E-06	2.257000E+01
+-4.881833E-02	-1.114131E-06	2.300000E+01
+-4.877611E-02	-1.104914E-06	2.346000E+01
+-4.879684E-02	-1.078798E-06	2.389000E+01
+-4.878302E-02	-1.084943E-06	2.434000E+01
+-4.883368E-02	-1.139478E-06	2.479000E+01
+-4.884904E-02	-1.131029E-06	2.524000E+01
+-4.942166E-02	-1.075177E-06	2.573000E+01
+-5.007182E-02	-1.244133E-06	2.653000E+01
+-5.008103E-02	-1.190375E-06	2.738000E+01
+-5.014013E-02	-1.175015E-06	2.823000E+01
+-4.880605E-02	-1.061132E-06	2.875000E+01
+-5.036273E-02	-1.159655E-06	2.956000E+01
+-5.070585E-02	-1.474528E-06	3.062000E+01
+-4.893731E-02	-1.068045E-06	3.116000E+01
+-4.885748E-02	-1.068045E-06	3.161000E+01
+-4.887591E-02	-1.079566E-06	3.205000E+01
+-4.886439E-02	-1.120276E-06	3.250000E+01
+-4.887667E-02	-1.097233E-06	3.294000E+01
+-4.885748E-02	-1.083407E-06	3.339000E+01
+-4.884443E-02	-1.081871E-06	3.382000E+01
+-4.885978E-02	-1.084175E-06	3.427000E+01
+-4.877228E-02	-1.043466E-06	3.471000E+01
+-4.887283E-02	-1.070349E-06	3.516000E+01
+-4.885134E-02	-1.064204E-06	3.560000E+01
+-4.888818E-02	-1.052683E-06	3.604000E+01
+-4.885518E-02	-1.077262E-06	3.649000E+01
+-4.886285E-02	-1.071117E-06	3.692000E+01
+-4.880298E-02	-1.051147E-06	3.737000E+01
+-5.007335E-02	-1.059817E-06	3.814000E+01

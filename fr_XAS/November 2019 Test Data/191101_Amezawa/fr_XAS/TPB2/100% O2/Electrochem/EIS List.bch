@@ -1,0 +1,49 @@
+ZPlot Batch File:             2.0
+Begin Line 1
+  Time:                       0
+  Time Type:                  0
+  Time Relative:              0
+  Pol Type:                   0
+  Pol Current:                0
+  Pol Potential:              -0.22
+  Setup:                      \\ANALYSIS\ANALYSIS_Data\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\EIS n220mV.zpw
+  Data:                       \\ANALYSIS\ANALYSIS_Data\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\100%O2_700C_n220mV_After_EIS_1.z
+  Data Replace:               1
+  Data Separate:              0
+End Line 1
+Begin Line 2
+  Time:                       0
+  Time Type:                  0
+  Time Relative:              0
+  Pol Type:                   0
+  Pol Current:                0
+  Pol Potential:              -0.22
+  Setup:                      \\ANALYSIS\ANALYSIS_Data\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\EIS n220mV Reverse.zpw
+  Data:                       \\ANALYSIS\ANALYSIS_Data\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\100%O2_700C_n220mV_After_EIS_2.z
+  Data Replace:               1
+  Data Separate:              0
+End Line 2
+Begin Line 3
+  Time:                       0
+  Time Type:                  0
+  Time Relative:              0
+  Pol Type:                   0
+  Pol Current:                0
+  Pol Potential:              0.15
+  Setup:                      \\ANALYSIS\ANALYSIS_Data\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\EIS p150mV.zpw
+  Data:                       \\ANALYSIS\ANALYSIS_Data\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\100%O2_700C_p150mV_After_EIS_1.z
+  Data Replace:               1
+  Data Separate:              0
+End Line 3
+Begin Line 4
+  Time:                       0
+  Time Type:                  0
+  Time Relative:              0
+  Pol Type:                   0
+  Pol Current:                0
+  Pol Potential:              0.15
+  Setup:                      \\ANALYSIS\ANALYSIS_Data\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\EIS p150mV Reverse.zpw
+  Data:                       \\ANALYSIS\ANALYSIS_Data\191101_Amezawa\fr_XAS\TPB2\100% O2\Electrochem\100%O2_700C_p150mV_After_EIS_2.z
+  Data Replace:               1
+  Data Separate:              0
+End Line 4

@@ -1,0 +1,3 @@
+Start Time	12:06:39.9514 2019/11/05	Frequency	25.0000	
+Voltage Gain VX0 Current Gain IX0 Pol Gain PI0 Internal Resistor RR5 
+	626.000000E-3
