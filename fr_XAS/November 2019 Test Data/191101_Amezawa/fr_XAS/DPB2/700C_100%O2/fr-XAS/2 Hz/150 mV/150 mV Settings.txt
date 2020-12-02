@@ -1,9 +1,0 @@
-Start Time	1:47:30.5874 2019/11/06	Frequency	2.0000	
-Voltage Gain VX0 Current Gain IX0 Pol Gain PI0 Internal Resistor RR4 
-	150.000000E-3
-Start Time	1:51:30.7571 2019/11/06	Frequency	2.0000	
-Voltage Gain VX0 Current Gain IX0 Pol Gain PI0 Internal Resistor RR4 
-	150.000000E-3
-Start Time	2:04:34.3619 2019/11/06	Frequency	2.0000	
-Voltage Gain VX0 Current Gain IX0 Pol Gain PI0 Internal Resistor RR4 
-	150.000000E-3
