@@ -19,7 +19,7 @@ def colorfun(v, v_max=1, v_min=-1):
 
 def format_XANES(energies, Irs, etas, step=1, start_ind=0, stop_ind=None, marker='.',
                  inset_dict={}, startE=7705, stopE=7730, size=(9, 6),
-                 plot_data=True):
+                 plot_data=True, colorbar=True):
 
     def format_func(value, tick_number):
         return f'{value:.1f}'
@@ -39,10 +39,10 @@ def format_XANES(energies, Irs, etas, step=1, start_ind=0, stop_ind=None, marker
     y_vert = inset_dict['y_vertical']
 
     title_font = {'fontname':'Arial', 'size':'16', 'color':'black', 'weight':'normal'}
-    mpl.rcParams['xtick.labelsize'] = 16
-    mpl.rcParams['ytick.labelsize'] = 16
-    mpl.rcParams['legend.fontsize'] = 16
-    mpl.rcParams['axes.labelsize'] = 16
+    # mpl.rcParams['xtick.labelsize'] = 16
+    # mpl.rcParams['ytick.labelsize'] = 16
+    # mpl.rcParams['legend.fontsize'] = 16
+    # mpl.rcParams['axes.labelsize'] = 16
 
 
     # Finding max and min of Ir across all data sets for setting plot limits
@@ -56,8 +56,16 @@ def format_XANES(energies, Irs, etas, step=1, start_ind=0, stop_ind=None, marker
     ## Plotting full XANES spectra
     fig = plt.figure(constrained_layout=False, figsize=size)
     gs = fig.add_gridspec(7, 25)
-    f_ax1 = fig.add_subplot(gs[:, :-1])
-    f_ax2=fig.add_subplot(gs[0:4,3:13])
+    if colorbar:
+        f_ax1 = fig.add_subplot(gs[:, :-1])
+           # Area for inset
+        f_ax2=fig.add_subplot(gs[0:4,3:13])
+        fig = add_colorbar(fig, gs, max_eta, min_eta)
+    else:
+        f_ax1 = fig.add_subplot(gs[:, :])
+            # Area for inset
+        f_ax2=fig.add_subplot(gs[0:4,3:13])
+    
 
     ## Choosing plot limits for inset
     xind1=np.argwhere(energies>=inset_dict['start_energy'])[0]
@@ -79,8 +87,9 @@ def format_XANES(energies, Irs, etas, step=1, start_ind=0, stop_ind=None, marker
             fig = plot_XANES_data(fig, energies, Irs[:, n], color=color)
 
     f_ax1.set(xlim=[startE,stopE], ylim=[.97 * Ir_abs_min, 1.05 * Ir_abs_max])
-    f_ax1.set_ylabel(r'normalized $\mu$(E)  / a.u.', **title_font)
-    f_ax1.set_xlabel(r'E  /  eV', **title_font)
+    f_ax1.set_ylabel(r'$\mu$(E) (a.u.)')# , **title_font)
+    f_ax1.set_xlabel(r'E (eV)')# , **title_font)
+    f_ax1.yaxis.set_major_formatter(mpl.ticker.FormatStrFormatter('%.2f'))
 
     f_ax2.set(xlim=[x1+x_lat+x1_adj, x2+x_lat+x2_adj], 
           xticks=np.arange(x1+x1_adj, x2+x2_adj, x_interval),
@@ -90,10 +99,6 @@ def format_XANES(energies, Irs, etas, step=1, start_ind=0, stop_ind=None, marker
     f_ax2.yaxis.set_major_locator(plt.MaxNLocator(3))
     f_ax2.xaxis.set_major_locator(plt.MaxNLocator(3))
     f_ax2.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
-
-
-    # Plotting colorbar
-    fig = add_colorbar(fig, gs, max_eta, min_eta)
     
     return fig
 
@@ -103,11 +108,11 @@ def plot_XANES_data(fig, energies, Irs, color=(0,0,0)):
     ax2 = fig.axes[1]
     
     # Main Spectra
-    ax1.plot(energies, Irs, color=color,
-         linestyle='-',linewidth=.3, marker='', markersize=3)
+    ax1.plot(energies, Irs, color=color, linestyle='-', linewidth=.9,
+             marker='', markersize=.3, label='a')
     # Plot inset
-    ax2.plot(energies, Irs, color=color,
-             linestyle='-',linewidth=1, marker='', markersize=3)
+    ax2.plot(energies, Irs, color=color, linestyle='-',linewidth=1,
+             marker='', markersize=3)
     return fig
 
 
@@ -124,20 +129,25 @@ def XANES_gif(fig, energies, Irs, color=(0,0,0)):
              linestyle='-',linewidth=1.5, marker='', markersize=3)
 
 
-def format_diffXANES(energies, Irs, etas, start_ind=0, stop_ind=None, step=1, startE=7700, stopE=7735, size=(9,6), plot_data=True):
-    fig = plt.figure(constrained_layout=False, figsize=size)
-    gs = fig.add_gridspec(7, 25)
-    ax = fig.add_subplot(gs[:, :-1])
+def format_diffXANES(energies, Irs, etas, start_ind=0, stop_ind=None, step=1,
+                     startE=7700, stopE=7735, size=(9,6), plot_data=True,
+                     colorbar=True):
 
     max_eta = np.max(etas-etas[start_ind])
     min_eta = np.min(etas-etas[start_ind])
-#     color_max = np.max(etas-etas[start_ind])
-#     color_min = np.min(etas-etas[start_ind])
-#     color = colorfun(eta_diff, v_max=color_max, v_min=color_min)
+
+    fig = plt.figure(constrained_layout=False, figsize=size)
+    gs = fig.add_gridspec(7, 25)
+    if colorbar:
+        ax = fig.add_subplot(gs[:, :-1])
+        add_colorbar(fig, gs, max_eta, min_eta)
+    else:
+        ax = fig.add_subplot(gs[:, :])
+    
     if stop_ind is None:
         stop_ind = Irs.shape[-1]
 
-    for n in np.arange(start_ind, stop_ind, step):
+    for n in np.arange(start_ind+1, stop_ind, step):
         if plot_data:
             color = colorfun(etas[n] - etas[start_ind], v_max=max_eta, v_min=min_eta)
             plot_diffXANES(fig, energies, Irs, n, start_ind, color)
@@ -151,11 +161,8 @@ def format_diffXANES(energies, Irs, etas, start_ind=0, stop_ind=None, step=1, st
     ax.set_yticks(np.round(np.arange(-ylim, ylim*1.01, 2*ylim/(n_ticks-1)), 3))
     
     title_font = {'fontname':'Arial', 'size':'16', 'color':'black', 'weight':'normal'}
-    ax.set_ylabel(r'$\Delta$ $\mu_{norm}$  / a.u.', labelpad=-10, **title_font)
-    ax.set_xlabel(r'Energy  /  eV', **title_font)  
-
-    # Plotting colorbar
-    add_colorbar(fig, gs, max_eta, min_eta)
+    ax.set_ylabel(r'$\Delta$ $\mu$  (a.u.)', labelpad=-10) # , **title_font)
+    ax.set_xlabel(r'E (eV)') # , **title_font)  
 
     return fig
 
@@ -164,7 +171,7 @@ def plot_diffXANES(fig, energies, Irs, n, start_ind, color=(0,0,0)):
     ax = fig.axes[0]
 
     Ir_diff = Irs[:, n] - Irs[:, start_ind]
-    ax.plot(energies, Ir_diff, color=color)
+    ax.plot(energies, Ir_diff, color=color, label='a')
 
     return fig
 
@@ -190,20 +197,28 @@ def plot_lissajou(energies, Irs, etas, plot_e=7719.8, start_ind=0, stop_ind=None
             eta_diffs.append(eta_diff)
         except:
             pass
-    print(n, Irs.shape[-1], etas[n])
+    #print(n, Irs.shape[-1], etas[n])
     Ir_diffs = np.array(Ir_diffs)
     eta_diffs = np.array(eta_diffs) * 1000
-    print(np.min(eta_diffs), np.max(eta_diffs))
+    print(Ir_diffs.shape, np.min(eta_diffs), np.max(eta_diffs))
     e_ind = np.argwhere(np.isclose(energies[:,0], plot_e))[0,0]
     if fig is None:
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(6,6))
+    else:
+        ax = fig.axes[0]
     ax.plot(eta_diffs, Ir_diffs[:, e_ind], **kwargs)
+    eta_min = np.min(eta_diffs)
+    eta_max = np.max(eta_diffs)
+    eta_lim = np.max(np.abs([eta_min, eta_max])) * 1.05
+    ax.set_xlim(-eta_lim, eta_lim)
+    ax.set_ylim(-eta_lim/1000, eta_lim/1000)
     ax.set_xlabel('Overpotential \ mV')
     ax.set_ylabel(f'$\Delta\mu$(E={energies[e_ind,0]:.1f} eV)')
 
     return fig
 
 
+# def plot_lissajou(
 def add_colorbar(fig, gs, max_eta, min_eta):
 
     f_ax3=fig.add_subplot(gs[:-1,-1])
@@ -227,7 +242,7 @@ def add_colorbar(fig, gs, max_eta, min_eta):
     norm = mpl.colors.Normalize(vmin=min_eta, vmax=max_eta)
     cb1=mpl.colorbar.ColorbarBase(f_ax3, cmap=cm, norm=norm, orientation='vertical')
     cb1.set_ticks([min_eta, 0, max_eta])
-    cb1.set_label('$\eta$ / mV',rotation=0, labelpad=-3, y=.75)
+    cb1.set_label('$\eta$ (mV)',rotation=0, labelpad=-3, y=.75)
 
     return fig
 
@@ -241,7 +256,7 @@ def transpose_list(list_a):
     return np.array(list_a).T
 
 
-def larch_xafs_normalization(filepath, _larch=None):
+def larch_xafs_normalization(filepath, e0=None, _larch=None):
     """
     """
     try:
@@ -264,7 +279,12 @@ def larch_xafs_normalization(filepath, _larch=None):
     group.filename = filename
     group.filenumber = filename.split('_Eta')[0]
     group.eta = filename.split('Eta_')[-1].split(' mV')[0]
-    xafs.pre_edge(group, pre1=-70.00, pre2=-25.00, nvict=0.00, nnorm=1.00, norm1=40.00, norm2=115.00)
+    if e0:
+        xafs.pre_edge(group, e0=e0, pre1=-70.00, pre2=-25.00, nvict=0.00,
+                      nnorm=1.00, norm1=40.00, norm2=115.00)
+    else:
+        xafs.pre_edge(group, pre1=-70.00, pre2=-25.00, nvict=0.00,
+                      nnorm=1.00, norm1=40.00, norm2=115.00)       
     group.norm_poly = 1.0*group.norm
     group.dnormde=group.dmude/group.edge_step
     xafs.autobk(group, rbkg=0.85, kweight=2)
@@ -273,13 +293,13 @@ def larch_xafs_normalization(filepath, _larch=None):
 
 
 def format_wfm(freq, etas, t_fin=1):
-    fig, ax =  plt.subplots(constrained_layout=True, sharex=True, sharey=True)
+    fig, ax =  plt.subplots(constrained_layout=False, sharex=True, sharey=True)
     amp = np.max(np.abs(etas))
 
     ax.set_xlim(0, t_fin)
     ax.set_ylim(-1.05 * amp, 1.05 * amp)
     ax.set_xlabel('Time (s)')
-    ax.set_ylabel('V')
+    ax.set_ylabel('V', rotation=0)
     
     return fig
 
@@ -292,3 +312,64 @@ def plot_wfm(fig, t, wfm, Etas, n):
     ax.plot(t, wfm, color=(.4, .4, .4))
     color = colorfun(wfm[n], v_max = amp, v_min = -amp)
     ax.plot(t[n], wfm[n],  color=color, marker='o', fillstyle='full')
+
+
+def format_XAFS(energies, Irs, etas, step=1, start_ind=0, stop_ind=None, marker='.',
+                 startE=7705, stopE=7730, size=(9, 6),
+                 plot_data=True, colorbar=True):
+                 
+    title_font = {'fontname':'Arial', 'size':'16', 'color':'black', 'weight':'normal'}
+    # mpl.rcParams['xtick.labelsize'] = 16
+    # mpl.rcParams['ytick.labelsize'] = 16
+    # mpl.rcParams['legend.fontsize'] = 16
+    # mpl.rcParams['axes.labelsize'] = 16
+    
+    # Finding max and min of Ir across all data sets for setting plot limits
+    Ir_abs_max = np.max(Irs)
+    Ir_abs_min = np.round(np.min(Irs[np.argwhere(energies>=startE)[0][0]]), 2)
+
+    # Finding max and min of eta (or voltage) for setting color bar limits
+    max_eta = np.max(etas)
+    min_eta = np.min(etas)
+
+    ## Plotting full XANES spectra
+    fig = plt.figure(constrained_layout=False, figsize=size)
+    gs = fig.add_gridspec(7, 25)
+    if colorbar:
+        f_ax1 = fig.add_subplot(gs[:, :-1])
+           # Area for inset
+        fig = add_colorbar(fig, gs, max_eta, min_eta)
+    else:
+        f_ax1 = fig.add_subplot(gs[:, :])
+
+    
+    if stop_ind is None:
+        stop_ind = Irs.shape[-1]
+
+        
+    if plot_data:
+        for n in range(start_ind, stop_ind, step):
+            color = colorfun(etas[n], max_eta, min_eta)
+            fig = plot_XAFS_data(fig, energies, Irs[:, n], color=color)
+
+    f_ax1.set(xlim=[startE,stopE], ylim=[.97 * Ir_abs_min, 1.05 * Ir_abs_max])
+    f_ax1.set_ylabel(r'normalized $\mu$(E) (a.u.)') # , **title_font)
+    f_ax1.set_xlabel(r'Energy (eV)') # , **title_font)
+
+    
+    return fig
+
+def plot_XAFS_data(fig, energies, Irs, color=(0,0,0)):
+    ax1 = fig.axes[0]
+    
+    # Main Spectra
+    ax1.plot(energies, Irs, color=color, linestyle='-', linewidth=1,
+             marker='', markersize=.3, label='a')
+    return fig
+
+
+@gif.frame
+def XAFS_gif(fig, energies, Irs, color=(0,0,0)):
+    ax1 = fig.axes[0]
+    ax1.plot(energies, Irs, color=color,
+         linestyle='-',linewidth=1.5, marker='', markersize=3)
