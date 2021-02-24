@@ -3,6 +3,10 @@
 __pycache__*
 ~/.ipynb_checkpoints*
 ~/__pycache__*
+*.gif
+*.svg
+*.png
+*.jpg
 *Plots/
 fr_XAS/Feb2018\ Data\ Fits/
 fr_XAS/July2018\ Data\ Fits/
