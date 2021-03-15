@@ -1,14 +1,27 @@
-# *data/
+# Checkpoint directories
 .ipynb_checkpoints*
 __pycache__*
 ~/.ipynb_checkpoints*
 ~/__pycache__*
+
+# Undesired directories
+*.idea
+*Plots/
+fr_XAS/Fit\ Reports/
+
+# Image file types
 *.gif
 *.svg
 *.png
 *.jpg
-*Plots/
+
+# EIS Data types
+*.z
+*.par
+
+# Data storage locations
 fr_XAS/Feb2018\ Data\ Fits/
 fr_XAS/July2018\ Data\ Fits/
 fr_XAS/November\ 2019\ Test\ Data/
 fr_XAS/June\ 2019\ Test\ Data
+fr_XAS/EIS\ Data/

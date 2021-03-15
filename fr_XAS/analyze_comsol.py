@@ -76,6 +76,7 @@ def extract_Z(dat):
 
     return f, Z
 
+
 def extract_Zdim(dat, Z_key=None, ignore_posZ=True):
     freq_key, Z_k = [], []
     for col in dat.columns:
@@ -110,7 +111,8 @@ def extract_Zdim(dat, Z_key=None, ignore_posZ=True):
     f, Z = f[::-1], Z[::-1]
 
     return f, Z
-    
+
+
 def extract_Xv(file, f_start=-3, f_stop=5, f_res=10, decimate=5, L=0.63):
     if '_Xv' not in file:
         raise Exception(f'\'Xv\' key not found in file name: {file}')
@@ -127,35 +129,57 @@ def extract_Xv(file, f_start=-3, f_stop=5, f_res=10, decimate=5, L=0.63):
     re_dat = re_dat.iloc[::decimate]
     
     im_dat = pd.read_csv(im_file, skiprows=7)
-    im_dat.columns =cols
+    im_dat.columns = cols
     im_dat = im_dat.iloc[::decimate]
     
     merged = pd.DataFrame()
+    # Convert from dimensionless distance to actual distance
     merged['x'] = re_dat.x * L
     
     for col in cols[1:]:
         merged[col] = re_dat[col] + 1j * im_dat[col]
+    merged = merged.reset_index()
 
     return merged
 
+
 def plot_com_dataXv(df, x_dat, data, axes, fs, amps, com_scale, base=0, G=2.14,
-                  colors=['k', 'r', 'b', 'c'], markers=['x', 's', '^', 'o']):
-    com_start = df.index[df.x == G].tolist()[0]
+                    colors=['k', 'r', 'b', 'c'], markers=['x', 's', '^', 'o'],
+                    labels=None, **kwargs):
+    com_start = df.index[np.isclose(df.x, G, atol=0.05)].tolist()[0]
+
+    if not labels:
+        labels = ['holder'] * len(data)
 
     for i, f in enumerate(fs):
         x_com = df.loc[com_start:, 'x'].values - G
         dat_com = df.loc[com_start:, f].values / com_scale
         
-        visualization.plot_chi(axes, x_com, dat_com, marker='', ls='-', color=colors[i])
+        visualization.plot_chi(axes,
+                               x_com,
+                               dat_com,
+                               marker='',
+                               ls='-.',
+                               color=colors[i],
+                               **kwargs)
         
         if i==0:
             dat = (data[i] - base) / amps[i]
         else:
             dat = data[i] / amps[i]
             
-        visualization.plot_chi(axes, x_dat[i], dat, marker=markers[i], ls='', color=colors[i])
+        visualization.plot_chi(axes,
+                               x_dat[i],
+                               dat,
+                               marker=markers[i],
+                               ls='',
+                               color=colors[i],
+                               label=labels[i],
+                               **kwargs)
 
     return axes
+
+
 def get_inits_R_RCPE_RC(f, Z, a_init):
     peak_inds = signal.find_peaks(-Z.imag)[0]
 
@@ -174,9 +198,9 @@ def get_inits_R_RCPE_RC(f, Z, a_init):
 
     return inits
 
+
 def get_inits_R_G_G(f, Z, tg):
     peak_inds = signal.find_peaks(-Z.imag)[0]
-    
 
     R1_ind = peak_inds[0] + np.argmax(Z[peak_inds[0]:peak_inds[1]].imag)
     R1_init = Z[R1_ind].real - Z[0].real
@@ -235,8 +259,8 @@ def get_inits_R_RCPE_RCPE_G(f, Z, tg, a_init):
              a_init, R2_init, tg]
     
     return inits
-    
-    
+
+
 def fit_R_RCPE_RC(file_name, ax, ind=None, return_Z=True, return_ax=True,
                   scale=False, a_init=0.8):
     """Returns: ax, f, Z, circ"""
@@ -313,8 +337,8 @@ def fit_R_G_G(file_name, ax, tg, ind=None, return_Z=True,
         returns.append(circ)
 
     return tuple(returns)
-    
-    
+
+
 def fit_R_RCPE_G(file_name, ax, tg, ind=None, return_Z=True,
                       return_ax=True, scale=False, a_init=0.8):
 #     print(f'Processing {file_name}\n')
@@ -352,7 +376,7 @@ def fit_R_RCPE_G(file_name, ax, tg, ind=None, return_Z=True,
         returns.append(circ)
 
     return tuple(returns)
-    
+
 
 def fit_R_RCPE_RCPE_G(file_name, ax, tg, ind=None, return_Z=True,
                       return_ax=True, scale=False, a_init=0.8):
@@ -444,3 +468,8 @@ def process_n0(file_name, ax, return_Z=True, return_ax=True):
         returns.append(circ)
 
     return tuple(returns)
+
+
+def chi_dc(x, amp=1, ld=10, gamma=0, base=0):
+    chi = amp * (np.exp(-x / ld))/(1 + gamma) + base
+    return chi

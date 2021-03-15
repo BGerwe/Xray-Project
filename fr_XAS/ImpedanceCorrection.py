@@ -167,10 +167,10 @@ def series_L(L, frequencies, Z):
 def subtract_series_L(frequencies, Z, L0):
     f = frequencies
     w = calcw(f)
-    fit1 = minimize(series_L, L0, method='Nelder-Mead', args=(f, Z))
-    fit2 = minimize(series_L, fit1.x[0], method='Nelder-Mead', args=(f, Z))
-    print(f'Distance between impedance points minimized by subtracting {fit2.x[0]:.3e}')
-    Z_adj = Z - fit2.x[0] * w * 1j
+    fit = minimize(series_L, L0, method='Nelder-Mead', args=(f, Z))
+    fit = minimize(series_L, fit.x[0], method='Nelder-Mead', args=(f, Z))
+    print(f'Distance between impedance points minimized by subtracting {fit.x[0]:.3e}')
+    Z_adj = Z - fit.x[0] * w * 1j
     return Z_adj
 
 
@@ -337,15 +337,12 @@ def find_peak_inds(Z):
 def find_peak_f_Z(f, Z, return_inds=False):
     peak_inds = find_peak_inds(Z)
 
-    peak_f = f[peak_inds]
-    peak_z = Z[peak_inds]
-
     if len(peak_inds) > 1:
-        print('More than one peak detected. Returning lowest-frequency values.')
+#         print('More than one peak detected. Returning lowest-frequency values.')
         ret_ind = peak_inds[np.argmin(f[peak_inds])]
         return f[ret_ind], Z[ret_ind]
     elif len(peak_inds) == 0:
-        print('No peaks detected.')
+#         print('No peaks detected.')
         return None, None
     else:
-        return f[peak_inds], Z[peak_inds]
+        return f[peak_inds][0], Z[peak_inds][0]
