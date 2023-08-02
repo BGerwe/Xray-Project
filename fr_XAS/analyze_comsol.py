@@ -146,8 +146,9 @@ def extract_Xv(file, f_start=-3, f_stop=5, f_res=10, decimate=5, L=0.63):
 def plot_com_dataXv(df, x_dat, data, axes, fs, amps, com_scale, base=0, G=2.14,
                     colors=['k', 'r', 'b', 'c'], markers=['x', 's', '^', 'o'],
                     labels=None, **kwargs):
-    com_start = df.index[np.isclose(df.x, G, atol=0.05)].tolist()[0]
-
+    com_start = df.index[np.isclose(df.x, G, atol=0.01)].tolist()[0]
+    com_scale = df.loc[com_start, fs[0]]
+    print(com_scale, df.loc[com_start, 'x'], df.loc[com_start:com_start+6, fs[0]])
     if not labels:
         labels = ['holder'] * len(data)
 
